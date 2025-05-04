@@ -1,6 +1,6 @@
 Custom License - NonCommercial Use Only
 
-Copyright © 2025 Aaron Martinez
+Copyright © 2025 Leggoome
 
 Permission is hereby granted to use, copy, modify, and distribute this software and its associated files 
 for non-commercial purposes only, provided that proper credit is given to the original author.
