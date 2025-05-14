@@ -1,24 +1,44 @@
-# Polybius Cipher Program
+# Made by Leggoome, 5/13/2025
+# square is just the polybius checkerboard
+square = [
+    ['A', 'B', 'C', 'D', 'E'],
+    ['F', 'G', 'H', 'I', 'K'],
+    ['L', 'M', 'N', 'O', 'P'],
+    ['Q', 'R', 'S', 'T', 'U'],
+    ['V', 'W', 'X', 'Y', 'Z']
+]
 
-def polybiusCipher(s):
-    for char in s:
-        if char == ' ':
-            continue  # skip spaces
-        row = int((ord(char) - ord('a')) / 5) + 1
-        col = ((ord(char) - ord('a')) % 5) + 1
+# Function to actually decode it
+def decoder(tst):
+    pairs = len(tst) // 2
+    output = ""
+    for i in range(pairs):
+        row = int(tst[i * 2]) - 1
+        col = int(tst[i * 2 + 1]) - 1
+        output += square[row][col]
+    return output
 
-        if char == 'k':
-            row = row - 1
-            col = 5 - col + 1
-        elif ord(char) >= ord('j'):
-            if col == 1:
-                col = 6
-                row = row - 1
-            col = col - 1
+# Function to encode a message
+def encoder(msg):
+    msg = msg.upper().replace("J", "I")
+    output = ""
+    for char in msg:
+        if char == " ":
+            output += "  "
+            continue
+        found = False  # Flag to track if the character is found
+        for row in range(5):
+            for col in range(5):
+                if square[row][col] == char:
+                    output += f"{row + 1}{col + 1} "
+                    found = True
+                    break
+            if found:
+                break
+        if not found:
+            return "Invalid Character, Try again"  # Return if any character is invalid
+    return output.strip()
 
-        print(row, col, end='', sep='')
-
-if __name__ == "__main__":
-    user_input = input("Enter message to encrypt: ").lower()
-    print("You entered:", user_input)
-    polybiusCipher(user_input)
+input_str = input("Enter the message to encode: ")
+sentence = encoder(input_str)
+print(sentence)
